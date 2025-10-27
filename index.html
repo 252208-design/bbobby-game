@@ -140,7 +140,7 @@ class Character {
     takeDamage(amount) { this.hp -= amount; if (this.hp <= 0) this.hp = 0; }
 }
 class Player extends Character {
-    constructor(x, y) { super(x, y, 40, '#4a90e2', 100, 5, '뽀삐'); this.attack1Cooldown = 0; this.attack2Cooldown = 0; this.hoodieOn = false; this.hoodieCooldown = 0; this.isSlowed = false; this.isBoosted = false; }
+    constructor(x, y) { super(x, y, 40, '#4a90e2', 100, 6, '뽀삐'); this.attack1Cooldown = 0; this.attack2Cooldown = 0; this.hoodieOn = false; this.hoodieCooldown = 0; this.isSlowed = false; this.isBoosted = false; }
     update() {
         if (this.attack1Cooldown > 0) this.attack1Cooldown--; if (this.attack2Cooldown > 0) this.attack2Cooldown--; if (this.hoodieCooldown > 0) this.hoodieCooldown--; if(this.flashFrames > 0) this.flashFrames--;
         this.dx = 0; this.dy = 0; 
@@ -378,7 +378,7 @@ const stages = [
     { type: 'reachGoal', skippable: true, goal: "박지원의 샤우팅을 피해 탈출하세요!", briefing: `박지원: "뽀삐이이이이~~~~~!!!" (샤우팅은 즉사다!)`, setup: () => { enemies.push(new Enemy({x: 800, y: 50, size: 50, color: '#FF69B4', hp: 9999, speed: 2, name: '박지원', ai: AIs.ji원, dx: 1.5})); missionTracker.textContent = "5초 후 문이 열린다! 버텨라!"; setTimeout(() => { if(gameState === 'playing') { stageObjects.push({ type: 'goal', name: '문', x: canvas.width - 20, y: 0, w: 20, h: canvas.height, color: 'rgba(0, 255, 0, 0.3)'}); missionTracker.textContent = "문이 열렸다! 탈출하라!"; }}, 5000);}, jibunReward: 8, defeatName: "박지원", clearMessage: "시끄러운 애를 피했다!" },
     { type: 'volleyball', skippable: true, goal: "김지훈과의 뽀삐 배구에서 3점을 먼저 내세요!", briefing: `김지훈: "배구 한 판? 지는 사람이 지분 뺏기는 거다."`, setup: () => { stageObjects.push({ p1Score: 0, p2Score: 0, ball: {x: 200, y: 100, vx: 3, vy: -6, size: 20}, p2: {x: 750, y: canvas.height - 40, size: 40, vy:0}, net: {x: canvas.width/2 - 5, y: canvas.height - 200, w: 10, h: 200}}); player.vy = 0; }, jibunReward: 10, defeatName: "김지훈", clearMessage: "내가 배구 짱이다." },
     { type: 'timer', skippable: true, goal: "15초에 맞춰 스페이스바를 누르세요!", briefing: `김주희 선생님: "이번 수행평가는 시간 관리 능력이다.\n타이머가 보일테니, 정확히 15초에 스페이스바를 눌러라. (오차 ±0.15초)"`, setup: () => { stageObjects.push({ startTime: Date.now() }); }, jibunReward: 8, defeatName: "김주희 선생님", clearMessage: "시간 관리의 신, 그게 바로 나다." },
-    { type: 'whackAMole', skippable: true, goal: "김은성을 5번 잡아 실내화를 되찾으세요!", briefing: `김은성: "광견병! 네 실내화, 찾아보시지!\n나타나면 다가가서 공격 키(1 또는 2)를 눌러라!"`, duration: 30, setup: () => { stageObjects.push({ score: 0, targetScore: 5, moleTimer: 60, activeMole: -1, deskPositions: [ {x:100, y:100}, {x:450, y:100}, {x:800, y:100}, {x:100, y:400}, {x:450, y:400}, {x:800, y:400} ] }); }, jibunReward: 10.9, defeatName: "김은성", clearMessage: "내 실내화는 소중하다고!" },
+    { type: 'whackAMole', skippable: true, goal: "김은성을 5번 잡아 실내화를 되찾으세요!", briefing: `김은성: "광견병! 네 실내화, 찾아보시지!\n나타나면 다가가서 공격 키(1 또는 2)를 눌러라!"`, duration: 35, setup: () => { stageObjects.push({ score: 0, targetScore: 5, moleTimer: 60, activeMole: -1, deskPositions: [ {x:100, y:100}, {x:450, y:100}, {x:800, y:100}, {x:100, y:400}, {x:450, y:400}, {x:800, y:400} ] }); }, jibunReward: 10.9, defeatName: "김은성", clearMessage: "내 실내화는 소중하다고!" },
     { type: 'bulletHell', skippable: true, goal: "윤여민의 포토 타임에서 30초간 살아남으세요!", briefing: `윤여민: "애들아, 왜 그러는 거야? ...나도 껴줘야지! (찰칵찰칵)"`, duration: 30, setup: () => { enemies.push(new Enemy({x:canvas.width/2, y:50, size:40, color:'teal', hp:9999, speed:0, name:'윤여민', ai:AIs.yeo민})); }, jibunReward: 10, defeatName: "윤여민", clearMessage: "사진 그만 찍어!" },
     { type: 'survive', skippable: true, goal: "3대장 No.2 박정우의 공격에서 살아남으세요!", briefing: `박정우: "왜 내가 1대장이 아닌데? 진정한 1대장의 힘을 보여주지!"`, duration: 45, setup: () => { enemies.push(new Enemy({x:500, y:50, size:55, color:'#B22222', hp:9999, speed:3.5, name:'박정우', ai:AIs.finalJeongwoo})); }, jibunReward: 10, defeatName: "박정우", clearMessage: "진정한 1대장은 나, 뽀삐다!" },
     { type: 'survive', skippable: true, goal: "3대장 No.1 안윤상의 억까 공격에서 살아남으세요!", briefing: `안윤상: "돼지야, 인생 쉽노. 나의 억까 공격을 버텨봐라!"`, duration: 30, setup: () => { enemies.push(new Enemy({x:500, y:300, size:60, color:'#FFD700', hp:9999, speed:1, name:'안윤상', ai:AIs.finalYun상})); }, jibunReward: 10, defeatName: "안윤상", clearMessage: "네 억까도 별거 아니네." },
@@ -510,7 +510,37 @@ function gameOver(enemyName) {
     let message = enemyName === "윤희철의 영원한 필기 셔틀"
         ? `오 마이 카미사마, 뽀삐는 ${enemyName}이 되었습니다...`
         : `오 마이 카미사마, 뽀삐는 ${enemyName}의 것입니다...`;
-    showMessageBox("게임 오버", message, "처음부터 다시", () => window.location.reload());
+
+    showMessageBox("게임 오버", message, "", () => {}, true);
+    messageButton.style.display = 'none';
+    messageChoices.innerHTML = '';
+
+    const retryBtn = document.createElement('button');
+    retryBtn.textContent = '스테이지 재시도';
+    retryBtn.className = 'choice-btn';
+    retryBtn.onclick = () => {
+        messageBox.style.display = 'none';
+        canvas.style.display = 'block';
+        gameWrapper.style.backgroundImage = '';
+
+        if (enemyName === "윤희철의 영원한 필기 셔틀") {
+            jibun = 100;
+            player.hp = player.maxHp;
+            startFinalBoss();
+        } else {
+            loadStage();
+        }
+    };
+    messageChoices.appendChild(retryBtn);
+
+    const restartBtn = document.createElement('button');
+    restartBtn.textContent = '처음부터 다시';
+    restartBtn.className = 'choice-btn';
+    restartBtn.style.backgroundColor = '#888';
+    restartBtn.onclick = () => {
+        window.location.reload();
+    };
+    messageChoices.appendChild(restartBtn);
 }
 
 // --- Event & Minigame Functions ---
@@ -739,12 +769,12 @@ function update() {
             let newMole;
             do { newMole = Math.floor(Math.random() * state.deskPositions.length); } while (newMole === state.activeMole);
             state.activeMole = newMole;
-            state.moleTimer = 40 + Math.random() * 30;
+            state.moleTimer = 60 + Math.random() * 40;
         }
         if ((keys['1'] || keys['2']) && player.attack1Cooldown === 0) {
             player.attack1Cooldown = 15;
             const activeDesk = state.deskPositions[state.activeMole];
-            if (state.activeMole !== -1 && isColliding(player, {x: activeDesk.x, y: activeDesk.y, size: 100})) {
+            if (state.activeMole !== -1 && isColliding(player, {x: activeDesk.x - 15, y: activeDesk.y - 15, size: 130})) {
                 state.score++;
                 state.activeMole = -1;
                 state.moleTimer = 20;
@@ -802,29 +832,49 @@ function updateVolleyball() {
     player.vy += 0.5;
     if (player.y + player.size >= canvas.height && player.vy > 0) { player.y = canvas.height - player.size; player.vy = 0; }
     if (keys['ArrowUp'] && player.y + player.size >= canvas.height) player.vy = -14;
-    if (keys['ArrowLeft']) player.x -= 7; if (keys['ArrowRight']) player.x += 7;
-    player.y += player.vy; player.x = Math.max(0, Math.min(state.net.x - player.size, player.x));
+    if (keys['ArrowLeft']) player.x -= 10; 
+    if (keys['ArrowRight']) player.x += 10;
+    player.y += player.vy; 
+    player.x = Math.max(0, Math.min(state.net.x - player.size, player.x));
     
-    state.p2.x += (state.ball.x > state.p2.x + state.p2.size/2 ? 1 : -1) * 4;
+    state.p2.x += (state.ball.x > state.p2.x + state.p2.size / 2 ? 1 : -1) * 6;
     state.p2.x = Math.max(state.net.x + state.net.w, state.p2.x);
     state.p2.x = Math.min(canvas.width - state.p2.size, state.p2.x);
 
     if (state.ball.x > state.net.x && state.ball.y > 200 && Math.abs(state.ball.x - state.p2.x) < 50 && state.p2.y + state.p2.size >= canvas.height) state.p2.vy = -14;
-    state.p2.vy += 0.5; state.p2.y += state.p2.vy;
+    state.p2.vy += 0.5; 
+    state.p2.y += state.p2.vy;
     if (state.p2.y + state.p2.size >= canvas.height && state.p2.vy > 0) { state.p2.y = canvas.height - state.p2.size; state.p2.vy = 0; }
     
-    state.ball.vy += 0.2; state.ball.x += state.ball.vx; state.ball.y += state.ball.vy;
+    state.ball.vy += 0.2; 
+    state.ball.x += state.ball.vx; 
+    state.ball.y += state.ball.vy;
     if (state.ball.x < 0 || state.ball.x > canvas.width) state.ball.vx *= -1;
-    const checkHit = (p, b) => { const dist = Math.hypot(p.x+p.size/2 - b.x, p.y+p.size/2 - b.y); if(dist < p.size/2 + b.size/2){ b.vx = (b.x - (p.x+p.size/2)) * 0.3; b.vy = -8; }};
-    checkHit(player, state.ball); checkHit(state.p2, state.ball);
-    if(isColliding(state.ball, state.net)) { state.ball.vx *= -1.1; state.ball.x += state.ball.vx > 0 ? 5: -5; }
-    if(state.ball.y > canvas.height) {
-        if(state.ball.x < canvas.width/2) state.p2Score++; else state.p1Score++;
-        state.ball = { x: state.ball.x < canvas.width/2 ? 700:200, y: 100, vx: (state.ball.x < canvas.width/2? -3:3), vy: -6, size: 20 };
-        if (state.p1Score >= 3) stageClear(); if (state.p2Score >= 3) gameOver(currentStageConfig.defeatName);
+
+    const checkHit = (p, b) => { 
+        const dist = Math.hypot(p.x + p.size / 2 - b.x, p.y + p.size / 2 - b.y); 
+        if (dist < p.size / 2 + b.size / 2) { 
+            b.vx = (b.x - (p.x + p.size / 2)) * 0.4;
+            b.vy = -11;
+        }
+    };
+    checkHit(player, state.ball); 
+    checkHit(state.p2, state.ball);
+
+    if (isColliding(state.ball, state.net)) { 
+        state.ball.vx *= -1.1; 
+        state.ball.x += state.ball.vx > 0 ? 5 : -5; 
+    }
+
+    if (state.ball.y > canvas.height) {
+        if (state.ball.x < canvas.width / 2) state.p2Score++; else state.p1Score++;
+        state.ball = { x: state.ball.x < canvas.width / 2 ? 700 : 200, y: 100, vx: (state.ball.x < canvas.width / 2 ? -3 : 3), vy: -6, size: 20 };
+        if (state.p1Score >= 3) stageClear(); 
+        if (state.p2Score >= 3) gameOver(currentStageConfig.defeatName);
     }
     missionTracker.textContent = `스코어: ${state.p1Score} : ${state.p2Score}`;
 }
+
 
 function draw() {
     const bg = currentStageConfig && (currentStageConfig.type === 'finalBoss' || currentStageConfig.type === 'memoryGame') ? (Math.floor(Date.now() / 5000) % 2 === 0 ? classroom1Bg : classroom2Bg) : null;
